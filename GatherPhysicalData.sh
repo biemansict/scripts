@@ -176,7 +176,7 @@ echo "|Interfaces:|`ip a | grep link/ | wc -l`|" >>$filename
 echo "|Management interface naam:|$mintn|" >>$filename
 echo "|Interface mac:|$mintm|" >>$filename
 echo "|Interface IP:|$minti|" >>$filename
-echo "`ip a | grep -e lo -e bond -e br -e eth -e vlan -e link/ether -e inet | awk -F '<' '{print $1}' | awk -F 'brd' '{print $1}' | awk -F 'inet6' '{print $1}' | sed 's/link\/ether/|Interface mac:|/g' | sed 's/link\/loopback/|Loopback Interface mac:|/g' | sed 's/inet/|IP Address:|/g'|  sed 's/[0-9]: /|Interface Name:|/'| sed 's/[0-9]|/|/' | sed '/^\s*$/d' | sed 's/    //g' | sed 's/$/|/'`"
+echo "`ip a | grep -e lo -e bond -e br -e eth -e vlan -e link/ether -e inet | awk -F '<' '{print $1}' | awk -F 'brd' '{print $1}' | awk -F 'inet6' '{print $1}' | sed 's/link\/ether/|Interface mac:|/g' | sed 's/link\/loopback/|Loopback Interface mac:|/g' | sed 's/inet/|IP Address:|/g'|  sed 's/[0-9]: /|Interface Name:|/'| sed 's/[0-9]|/|/' | sed '/^\s*$/d' | sed 's/    //g' | sed 's/$/|/'`" >>$filename
 echo "|RAM:|`free -h | gawk  '/Mem:/{print $2}'`|" >>$filename
 echo "|Aantal CPU's:|`lscpu | grep 'Socket' | sed 's/Socket(s):             //g'`|" >>$filename
 echo "|Aantal cores per CPU|`lscpu | grep 'socket'  | sed 's/Core(s) per socket:    //g'`|" >>$filename
