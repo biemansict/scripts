@@ -1,6 +1,25 @@
 #!/bin/bash
 
+#Check if all packages are there and if not install them
+if [ $(dpkg-query -W -f='${Status}' dmidecode 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  apt-get --force-yes --yes install dmidecode;
+fi
+
+if [ $(dpkg-query -W -f='${Status}' gawk 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  apt-get --force-yes --yes install gawk;
+fi
+
+if [ $(dpkg-query -W -f='${Status}' lsb-release 2>/dev/null | grep -c "ok installed") -eq 0 ];
+then
+  apt-get --force-yes --yes install lsb-release;
+fi
+
 #Generate questions
+echo -n "Rack:"
+read rno 
+
 echo -n "Jaar van aanschaf:"
 read yopurchase
 
@@ -57,6 +76,10 @@ read comments
 
 
 #Check if the questions are answered
+if [ -z "$rno" ]; then
+     rno=-
+fi
+
 if [ -z "$yopurchase" ]; then
      yopurchase=-
 fi
@@ -129,33 +152,37 @@ if [ -z "$comments" ]; then
      comments=-
 fi
 
+#Create variables
+filename=`hostname`.txt
+
 #Build output
-echo "|Servernaam (primaire DNS):|`hostname -f`|"
-echo "|Server Type:|`sudo dmidecode | grep -A3 'System Information' | grep "Product Name" | sed "s/Product Name: //g"`|"
-echo "|Jaar van aanschaf:|$yopurchase|"
-echo "|Service Tag:|`sudo dmidecode|grep "Serial Number" | sed -e '2,$d' -e 's/Serial Number: //g'`|"
-echo "|Servicecontract:|$scontract|"
-echo "|Servicecontractnummer:|$scontractno|"
-echo "|Servicecontract telefoonnummer:|$scontractpnr|"
-echo "|Einddatum servicecontract:|$scontractend|"
-echo "|Laatste service verzoek:|$lastreq|"
-echo "|Project:|$project|"
-echo "|Doel:|$purpose|"
-echo "|OS:|`lsb_release -d | cut -f2`|"
-echo "|Laatste update / upgrade:|`stat -c %y /var/log/apt/history.log | awk -F '.' '{print $1}'`|"
-echo "|Primaire gebruiker(s):|$pusers|"
-echo "|Overige DNS entry's:|$edns|"
-echo "|Interfaces:|`ip a | grep link/ | wc -l`|"
-echo "|Management interface naam:|$mintn|"
-echo "|Interface mac:|$mintm|"
-echo "|Interface IP:|$minti|"
+echo "|Servernaam (primaire DNS):|`hostname -f`|" >>$filename
+echo "|Racknummer:|$rno|" >>$filename
+echo "|Server Type:|`dmidecode | grep -A3 'System Information' | grep "Product Name" | sed "s/Product Name: //g"`|" >>$filename
+echo "|Jaar van aanschaf:|$yopurchase|" >>$filename
+echo "|Service Tag:|`dmidecode|grep "Serial Number" | sed -e '2,$d' -e 's/Serial Number: //g'`|" >>$filename
+echo "|Servicecontract:|$scontract|" >>$filename
+echo "|Servicecontractnummer:|$scontractno|" >>$filename
+echo "|Servicecontract telefoonnummer:|$scontractpnr|" >>$filename
+echo "|Einddatum servicecontract:|$scontractend|" >>$filename
+echo "|Laatste service verzoek:|$lastreq|" >>$filename
+echo "|Project:|$project|" >>$filename
+echo "|Doel:|$purpose|" >>$filename
+echo "|OS:|`lsb_release -d | cut -f2`|" >>$filename
+echo "|Laatste update / upgrade:|`stat -c %y /var/log/apt/history.log | awk -F '.' '{print $1}'`|" >>$filename
+echo "|Primaire gebruiker(s):|$pusers|" >>$filename
+echo "|Overige DNS entry's:|$edns|" >>$filename
+echo "|Interfaces:|`ip a | grep link/ | wc -l`|" >>$filename
+echo "|Management interface naam:|$mintn|" >>$filename
+echo "|Interface mac:|$mintm|" >>$filename
+echo "|Interface IP:|$minti|" >>$filename
 echo "`ip a | grep -e lo -e bond -e br -e eth -e vlan -e link/ether -e inet | awk -F '<' '{print $1}' | awk -F 'brd' '{print $1}' | awk -F 'inet6' '{print $1}' | sed 's/link\/ether/|Interface mac:|/g' | sed 's/link\/loopback/|Loopback Interface mac:|/g' | sed 's/inet/|IP Address:|/g'|  sed 's/[0-9]: /|Interface Name:|/'| sed 's/[0-9]|/|/' | sed '/^\s*$/d' | sed 's/    //g' | sed 's/$/|/'`"
-echo "|RAM:|`free -h | gawk  '/Mem:/{print $2}'`|"
-echo "|Aantal CPU's:|`lscpu | grep 'Socket' | sed 's/Socket(s):             //g'`|"
-echo "|Aantal cores per CPU|`lscpu | grep 'socket'  | sed 's/Core(s) per socket:    //g'`|"
-echo "|Aantal threats:|`nproc`|"
-echo "|Back-up mappen:|$bupm|"
-echo "|Back-up schema:|$bups|"
-echo "|Bijzondere geinstalleerde software:|$spkg|"
-echo "|Bijzondere configuraties:|$scnf|"
-echo "|Commentaar:|$comments|"
+echo "|RAM:|`free -h | gawk  '/Mem:/{print $2}'`|" >>$filename
+echo "|Aantal CPU's:|`lscpu | grep 'Socket' | sed 's/Socket(s):             //g'`|" >>$filename
+echo "|Aantal cores per CPU|`lscpu | grep 'socket'  | sed 's/Core(s) per socket:    //g'`|" >>$filename
+echo "|Aantal threats:|`nproc`|" >>$filename
+echo "|Back-up mappen:|$bupm|" >>$filename
+echo "|Back-up schema:|$bups|" >>$filename
+echo "|Bijzondere geinstalleerde software:|$spkg|" >>$filename
+echo "|Bijzondere configuraties:|$scnf|" >>$filename
+echo "|Commentaar:|$comments|" >>$filename
