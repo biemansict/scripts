@@ -163,6 +163,7 @@ filename=/roaming/adminStuff/fysiek/`hostname`.txt
 #Build output
 echo "|Servernaam (primaire DNS):|`hostname -f`|" >>$filename
 echo "|Racknummer:|$rno|" >>$filename
+echo "|Server Merk:|`dmidecode | grep "Vendor" | sed "s/Vendor: //g"`|" >>$filename
 echo "|Server Type:|`dmidecode | grep -A3 'System Information' | grep "Product Name" | sed "s/Product Name: //g"`|" >>$filename
 echo "|Jaar van aanschaf:|$yopurchase|" >>$filename
 echo "|Service Tag:|`dmidecode|grep "Serial Number" | sed -e '2,$d' -e 's/Serial Number: //g'`|" >>$filename
