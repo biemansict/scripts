@@ -1,5 +1,10 @@
 #!/bin/bash
 
+#Check if there already is a file named servername.txt
+if [ -e /roaming/adminStuff/fysiek/`hostname`.txt ]; then
+ mv /roaming/adminStuff/fysiek/`hostname`.txt /roaming/adminStuff/fysiek/`hostname`.`date +%F`
+fi
+
 #Check if all packages are there and if not install them
 if [ $(dpkg-query -W -f='${Status}' dmidecode 2>/dev/null | grep -c "ok installed") -eq 0 ];
 then
@@ -153,7 +158,7 @@ if [ -z "$comments" ]; then
 fi
 
 #Create variables
-filename=`hostname`.txt
+filename=/roaming/adminStuff/fysiek/`hostname`.txt
 
 #Build output
 echo "|Servernaam (primaire DNS):|`hostname -f`|" >>$filename
