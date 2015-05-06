@@ -42,6 +42,16 @@ connect_vpn() {
 
 #-------------------------------------------------
 #
+# disconnect_vpn()
+# Connect to the VPN Server
+#
+#-------------------------------------------------
+disconnect_vpn() {
+/opt/cisco/anyconnect/bin/vpn -s disconnect
+}
+
+#-------------------------------------------------
+#
 # Script parameters section
 #
 #-------------------------------------------------
@@ -62,4 +72,3 @@ esac
 
 
 exit 0
-#/opt/cisco/anyconnect/bin/vpn -s connect
