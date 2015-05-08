@@ -54,7 +54,7 @@ read comments
 
 
 #Check if the questions are answered
-if [ -z "$rno" ]; then
+if [ -z "$hvisor" ]; then
      hvisor=-
 fi
 
