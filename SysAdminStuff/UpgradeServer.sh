@@ -30,3 +30,6 @@ apt-get -y update
 
 #Upgrade the system
 apt-get -y upgrade
+
+#Upgrade the distribution
+apt-get -y dist-upgrade
