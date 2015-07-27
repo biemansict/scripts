@@ -8,9 +8,9 @@
 #
 #--------------------------------------------------
 
-vpnhost=VPNSERVERNAME
+vpnhost=vpn.uvt.nl
 filename=$0
-storedcred=NA
+storedcred=n
 
 #-------------------------------------------------
 #
