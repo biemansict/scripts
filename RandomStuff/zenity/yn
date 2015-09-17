@@ -1,0 +1,11 @@
+#!/bin/bash
+
+zenity --question --title="Computer Scan" \
+   --text="A Scan Of Your Computer Is Required! \
+   Would you like to perform this scan now?"
+
+if [ $? -eq 0 ] ; then 
+   zenity --info --text="Good"
+else
+   zenity --error --text="You pressed NO\!"
+fi
