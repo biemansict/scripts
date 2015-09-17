@@ -22,6 +22,9 @@ then
 fi
 
 #Generate questions
+echo -n "Prioriteit:"
+read prio 
+
 echo -n "Rack:"
 read rno 
 
@@ -81,6 +84,10 @@ read comments
 
 
 #Check if the questions are answered
+if [ -z "$prio" ]; then
+     prio=-
+fi
+
 if [ -z "$rno" ]; then
      rno=-
 fi
@@ -172,6 +179,7 @@ echo "|Servicecontractnummer:|$scontractno|" >>$filename
 echo "|Servicecontract telefoonnummer:|$scontractpnr|" >>$filename
 echo "|Einddatum servicecontract:|$scontractend|" >>$filename
 echo "|Laatste service verzoek:|$lastreq|" >>$filename
+echo "|Prioriteit:|$prio|" >>$filename
 echo "|Project:|$project|" >>$filename
 echo "|Doel:|$purpose|" >>$filename
 echo "|OS:|`lsb_release -d | cut -f2`|" >>$filename

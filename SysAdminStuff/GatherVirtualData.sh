@@ -22,6 +22,9 @@ then
 fi
 
 #Generate questions
+echo -n "Prioriteit:"
+read prio
+
 echo -n "Hypervisor:"
 read hvisor 
 
@@ -54,6 +57,10 @@ read comments
 
 
 #Check if the questions are answered
+if [ -z "$prio" ]; then
+     prio=-
+fi
+
 if [ -z "$hvisor" ]; then
      hvisor=-
 fi
@@ -99,6 +106,7 @@ filename=/roaming/adminStuff/virtueel/`hostname`.txt
 
 #Build output
 echo "|Servernaam (primaire DNS):|`hostname -f`|" >>$filename
+echo "|Prioriteit:|$prio|" >>$filename
 echo "|Hypervisor:|$hvisor|" >>$filename
 echo "|Project:|$project|" >>$filename
 echo "|Doel:|$purpose|" >>$filename
