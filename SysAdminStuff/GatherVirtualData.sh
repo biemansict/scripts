@@ -1,8 +1,10 @@
 #!/bin/bash
 
+workdir=$PWD
+
 #Check if there already is a file named servername.txt
-if [ -e /roaming/adminStuff/fysiek/`hostname`.txt ]; then
- mv /roaming/adminStuff/virtueel/`hostname`.txt /roaming/adminStuff/virtueel/`hostname`.`date +%F`
+if [ -e /$workdir/fysiek/`hostname`.txt ]; then
+ mv /$workdir/virtueel/`hostname`.txt /roaming/adminStuff/virtueel/`hostname`.`date +%F`
 fi
 
 #Check if all packages are there and if not install them
@@ -102,7 +104,7 @@ if [ -z "$comments" ]; then
 fi
 
 #Create variables
-filename=/roaming/adminStuff/virtueel/`hostname`.txt
+filename=/$workdir/virtueel/`hostname`.txt
 
 #Build output
 echo "|Servernaam (primaire DNS):|`hostname -f`|" >>$filename
