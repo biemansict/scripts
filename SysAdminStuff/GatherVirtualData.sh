@@ -121,7 +121,7 @@ echo "`ip a | grep -e lo -e bond -e br -e eth -e vlan -e link/ether -e inet | aw
 echo "|RAM:|`free -h | gawk  '/Mem:/{print $2}'`|" >>$filename
 echo "|Aantal CPU's:|`lscpu | grep 'Socket' | sed 's/Socket(s):             //g'`|" >>$filename
 echo "|Aantal cores per CPU|`lscpu | grep 'socket'  | sed 's/Core(s) per socket:    //g'`|" >>$filename
-echo "|Aantal threats:|`nproc`|" >>$filename
+echo "|Aantal threads:|`nproc`|" >>$filename
 echo "|Back-up mappen:|$bupm|" >>$filename
 echo "|Back-up schema:|$bups|" >>$filename
 echo "|Bijzondere geinstalleerde software:|$spkg|" >>$filename
