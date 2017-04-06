@@ -1,4 +1,6 @@
 #!/bin/bash
+# This script uses $1 as input so just run ./reverseipv6 IPv6-address or sh reverseipv6 IPv6-address
+
 input="$1"
 reverse=""
  
@@ -8,4 +10,5 @@ do
 	reverse="$reverse${input:$i:1}."
 done
  
-echo "$reverse" | cut -d ":" -f 1-4 | sed 's/:.//g' | sed 's/.$//g'
+echo "$reverse" | cut -d ":" -f 1-4 | sed 's/:.//g' | sed 's/.$//g' # Only last 4 octets
+#echo "$reverse" | sed 's/:.//g' | sed 's/.$//g' # All octets
