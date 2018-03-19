@@ -1,6 +1,3 @@
-# $Id: check_uptime 93750 2018-03-16 13:35:38Z lbiemans $
-# $URL: https://svn.uvt.nl/its-unix/group/check_uptime/opt/check_uptime/check_uptime $
-
 #!/bin/bash
 DAYS=$(awk '{printf("%d\n", $1/86400)}' /proc/uptime)
 
