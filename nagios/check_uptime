@@ -1,0 +1,21 @@
+# $Id: check_uptime 93750 2018-03-16 13:35:38Z lbiemans $
+# $URL: https://svn.uvt.nl/its-unix/group/check_uptime/opt/check_uptime/check_uptime $
+
+#!/bin/bash
+DAYS=$(awk '{printf("%d\n", $1/86400)}' /proc/uptime)
+
+if [[ "$DAYS" -lt 60 ]]; then
+  #statements
+  echo "OK. Uptime is $DAYS days."
+  exit 0
+fi
+if [ "$DAYS" -ge 60 ] && [ "$DAYS" -le 90 ]; then
+  #statements
+  echo "WARNING! Uptime is $DAYS days."
+  exit 1
+fi
+if [[ "$DAYS" -gt 90 ]]; then
+  #statements
+  echo "CRITICAL! Uptime is $DAYS days."
+  exit 2
+fi
